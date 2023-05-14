@@ -13,7 +13,7 @@ _qemu-utils_ package.
 The command
 
 ```sh
-./create-vm
+./create-vm image.img
 ```
 
 creates a raw VM image file `image.img`. It uses either `sudo` or `su` to

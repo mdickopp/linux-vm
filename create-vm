@@ -24,7 +24,7 @@ err_usage()
 show_usage()
 {
     cat <<EOF
-Usage: ${0##*/} [OPTION]...
+Usage: ${0##*/} [OPTION]... IMAGE_FILENAME
        ${0##*/} --help
 
 Creates a VM image based on Debian 12 (bookworm).
@@ -76,6 +76,10 @@ while test "$#" -gt 0; do
     esac
 done
 
+test "$#" -ge 1 || err_usage 'Missing image filename'
+image=$1
+shift
+
 test "$#" -eq 0 || err_usage 'Unrecognized argument:' "$1"
 
 
@@ -83,9 +87,9 @@ test "$#" -eq 0 || err_usage 'Unrecognized argument:' "$1"
 # Create VM image
 ##############################################################################
 
-# FIXME: do not hard code image filename and size
+# FIXME: do not hard code size
 
-truncate -s 16G /dev/stdout > image.img
+truncate -s 16G /dev/stdout > "$image"
 
 
 ##############################################################################
@@ -95,7 +99,7 @@ truncate -s 16G /dev/stdout > image.img
 if sudo -V > /dev/null 2>&1; then
     exec \
         env \
-        image=$(realpath --quiet --canonicalize-existing image.img) \
+        image=$(realpath --quiet --canonicalize-existing "$image") \
         srcdir="$srcdir" \
         sudo -i --preserve-env=image,srcdir \
         /bin/sh -e "$srcdir/01-setup-image.sh"
@@ -103,7 +107,7 @@ fi
 
 exec \
     env \
-    image=$(realpath --quiet --canonicalize-existing image.img) \
+    image=$(realpath --quiet --canonicalize-existing "$image") \
     srcdir="$srcdir" \
     su -l -s /bin/sh -w image,srcdir \
     -c 'exec /bin/sh -e "$srcdir/01-setup-image.sh"'
