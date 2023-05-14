@@ -1,0 +1,18 @@
+#!/bin/sh
+set -e
+
+/usr/bin/systemd-run \
+    --no-ask-password \
+    --unit=cleanup-shutdown \
+    --description='Clean up system before shutdown' \
+    --service-type=oneshot \
+    --remain-after-exit \
+    --working-directory=/ \
+    --property=After=multi-user.target \
+    --property=TimeoutStopSec=20min \
+    --property='ExecStop=/bin/sh -e /usr/local/lib/cleanup/cleanup-shutdown.sh' \
+    /bin/true
+
+exec /usr/bin/systemctl \
+    --no-ask-password \
+    poweroff

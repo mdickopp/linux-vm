@@ -1,0 +1,11 @@
+[Unit]
+Description=Set up inital user configuration
+ConditionPathExists=%h/.config/.setup-user
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -e /usr/local/lib/cleanup/setup-user.sh
+ExecStart=/bin/rm -f %h/.config/.setup-user
+
+[Install]
+WantedBy=gnome-session-pre.target

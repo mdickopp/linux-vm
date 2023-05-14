@@ -1,0 +1,2 @@
+deb [arch=amd64] https://deb.debian.org/debian bookworm main contrib
+deb [arch=amd64] https://deb.debian.org/debian sid main contrib

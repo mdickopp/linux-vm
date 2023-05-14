@@ -1,0 +1,109 @@
+#!/bin/sh
+set -e
+
+##############################################################################
+# Functions
+##############################################################################
+
+# Display an error message and terminate with exit status 1
+err()
+{
+    printf '%s: %s\n' "${0##*/}" "$*" >&2
+    exit 1
+}
+
+# Display an error message, indicate that the program has been invoked
+# incorrectly, and terminate with exit status 2
+err_usage()
+{
+    printf "%s: %s\\nTry '%s --help' for more information.\\n" "${0##*/}" "$*" "${0##*/}" >&2
+    exit 2
+}
+
+# Display usage information
+show_usage()
+{
+    cat <<EOF
+Usage: ${0##*/} [OPTION]...
+       ${0##*/} --help
+
+Creates a VM image based on Debian 12 (bookworm).
+
+Options:
+  -h, -?, --help    Display this help test and exit.
+
+EOF
+}
+
+
+##############################################################################
+# Determine source directory location
+##############################################################################
+
+err_srcdir_not_found()
+{
+    err 'Cannot determine location of source directory'
+}
+
+srcdir=$(realpath --quiet --canonicalize-existing "$0") || err_srcdir_not_found
+
+case $srcdir in
+    /?*/create-vm)
+        srcdir=${srcdir%/create-vm} ;;
+    *)
+        err_srcdir_not_found ;;
+esac
+
+
+##############################################################################
+# Process command line
+##############################################################################
+
+while test "$#" -gt 0; do
+    case $1 in
+        -h|-\?|--help|--hel|--he|--h)
+            show_usage
+            exit 0 ;;
+        -)
+            break ;;
+        --)
+            shift
+            break ;;
+        -*)
+            err_usage 'Unrecognized option:' "$1" ;;
+        *)
+            break ;;
+    esac
+done
+
+test "$#" -eq 0 || err_usage 'Unrecognized argument:' "$1"
+
+
+##############################################################################
+# Create VM image
+##############################################################################
+
+# FIXME: do not hard code image filename and size
+
+truncate -s 16G /dev/stdout > image.img
+
+
+##############################################################################
+# Execute next stage as root user
+##############################################################################
+
+if sudo -V > /dev/null 2>&1; then
+    exec \
+        env \
+        image=$(realpath --quiet --canonicalize-existing image.img) \
+        srcdir="$srcdir" \
+        sudo -i --preserve-env=image,srcdir \
+        /bin/sh -e "$srcdir/01-setup-image.sh"
+fi
+
+exec \
+    env \
+    image=$(realpath --quiet --canonicalize-existing image.img) \
+    srcdir="$srcdir" \
+    su -l -s /bin/sh -w image,srcdir \
+    -c 'exec /bin/sh -e "$srcdir/01-setup-image.sh"'

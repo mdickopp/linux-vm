@@ -1,0 +1,33 @@
+[desktop/ibus/panel]
+show-icon-on-systray=false
+
+[org/gnome/desktop/input-sources]
+sources=[('xkb', 'us'), ('xkb', 'de+nodeadkeys')]
+xkb-options=['compose:rctrl']
+
+[org/gnome/desktop/interface]
+clock-show-seconds=true
+clock-show-weekday=true
+document-font-name='Cantarell 11'
+font-antialiasing='rgba'
+font-hinting='slight'
+font-name='Cantarell 11'
+monospace-font-name='Liberation Mono 11'
+show-battery-percentage=true
+
+[org/gnome/desktop/peripherals/touchpad]
+tap-to-click=true
+
+[org/gnome/desktop/session]
+idle-delay=uint32 0
+
+[org/gnome/desktop/sound]
+event-sounds=false
+
+[org/gnome/settings-daemon/plugins/power]
+sleep-inactive-ac-type='nothing'
+sleep-inactive-battery-type='nothing'
+
+[org/gnome/software]
+allow-updates=false
+download-updates=false
