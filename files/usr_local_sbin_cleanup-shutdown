@@ -8,7 +8,10 @@ set -e
     --service-type=oneshot \
     --remain-after-exit \
     --working-directory=/ \
-    --property=After=multi-user.target \
+    --property=DefaultDependencies=no \
+    --property=Before=basic.target \
+    --property=Conflicts=umount.target \
+    --property=Before=umount.target \
     --property=TimeoutStopSec=20min \
     --property='ExecStop=/bin/sh -e /usr/local/lib/cleanup/cleanup-shutdown.sh' \
     /bin/true

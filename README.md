@@ -59,9 +59,9 @@ well.
 
 The command `cleanup-shutdown` (to be run as _root_) can be used to clean up
 the virtual machine after further setup (e.g., afetr installing additional
-software). It removes caches and history files, resets the desktop
-environment configuration, discards unused disk blocks, and shuts down the
-virtual machine.
+software). It removes log files, caches, and history files, resets the
+desktop environment configuration, discards unused disk blocks, and shuts
+down the virtual machine.
 
 Discarding usused disk blocks may take several minutes. However, it
 decreases the size of the virtual image file.

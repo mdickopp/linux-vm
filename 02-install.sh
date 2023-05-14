@@ -30,7 +30,10 @@ debootstrap \
 # Create essential configuration files
 ##############################################################################
 
-mkdir -p target/etc/apt target/etc/default/grub.d
+mkdir -p \
+      target/etc/apt \
+      target/etc/default/grub.d \
+      target/etc/dpkg/dpkg.cfg.d
 
 cat > target/etc/fstab <<EOF
 UUID=$(blkid -sUUID -ovalue "${imgdev}p2") /         ext4  errors=remount-ro                 0 1
@@ -47,10 +50,12 @@ cat "$srcdir/files/etc_apt_preferences" \
     > target/etc/apt/preferences
 cat "$srcdir/files/etc_apt_sources.list" \
     > target/etc/apt/sources.list
-cat "$srcdir/files/etc_kernel-img.conf" \
-    > target/etc/kernel-img.conf
 cat "$srcdir/files/etc_default_grub.d_fast-boot.cfg" \
     > target/etc/default/grub.d/fast-boot.cfg
+cat "$srcdir/files/etc_dpkg_dpkg.cfg.d_excludes" \
+    > target/etc/dpkg/dpkg.cfg.d/excludes
+cat "$srcdir/files/etc_kernel-img.conf" \
+    > target/etc/kernel-img.conf
 
 
 ##############################################################################

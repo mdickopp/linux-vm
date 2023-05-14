@@ -103,4 +103,18 @@ grub-install "$imgdev"
 # Perform cleanup
 ##############################################################################
 
+rm -fr \
+   /etc/network \
+   /var/log/bootstrap.log \
+   /var/log/journal
+
+find /usr/share/man \
+     -mindepth 1 \
+     ! -path '/usr/share/man/man*' \
+     -delete
+find /usr/share/locale \
+     -mindepth 1 \
+     ! -path /usr/share/locale/locale.alias \
+     -delete
+
 exec /bin/sh -e /usr/local/lib/cleanup/cleanup-shutdown.sh

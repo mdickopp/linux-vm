@@ -1,5 +1,3 @@
-cd "$HOME"
-
 rm -f .*_history .lesshst .face .face.icon .vboxclient-*
 rm -fr .cache .config/dconf .config/pulse
 
