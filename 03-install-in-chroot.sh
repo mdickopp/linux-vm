@@ -11,12 +11,15 @@ apt-get -y -o DPkg::Options::=--force-confold --purge install \
         linux-image-amd64
 
 apt-get -y -o DPkg::Options::=--force-confold --purge --no-install-recommends install \
+        bind9-host \
+        build-essential \
         emacs \
         file \
         firefox/sid libnss3/sid \
         fonts-liberation \
         fonts-liberation2 \
         fonts-noto \
+        git \
         gnome-core \
         gnome-shell-extension-prefs \
         gnome-shell-extensions-extra \
@@ -32,13 +35,16 @@ apt-get -y -o DPkg::Options::=--force-confold --purge --no-install-recommends in
         netcat-openbsd \
         network-manager-gnome \
         nftables \
+        openssh-client \
         openssl \
+        patch \
         strace \
         tcpdump \
         traceroute \
         unzip \
         vim-nox \
         virtualbox-guest-utils/sid virtualbox-guest-x11/sid \
+        xauth \
         xserver-xorg \
         xserver-xorg-input-all \
         xserver-xorg-input-wacom \
