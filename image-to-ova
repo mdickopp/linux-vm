@@ -230,7 +230,6 @@ cat > "$out.ovf" <<EOF
         <AudioAdapter codec="AD1980" useDefault="true" driver="ALSA" enabled="true" enabledOut="true"/>
         <RTC localOrUTC="UTC"/>
         <Clipboard mode="Bidirectional"/>
-        <DragAndDrop mode="Bidirectional"/>
         <StorageControllers>
           <StorageController name="IDE" type="PIIX4" PortCount="2" useHostIOCache="true" Bootable="true">
             <AttachedDevice passthrough="false" type="DVD" hotpluggable="false" port="1" device="0"/>

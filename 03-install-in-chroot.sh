@@ -82,6 +82,10 @@ cat "$srcdir/files/etc_systemd_user_setup-user.service" \
 sed -i '/GRUB_CMDLINE_LINUX_DEFAULT[[:space:]=]/c\
 GRUB_CMDLINE_LINUX_DEFAULT=""' /etc/default/grub
 
+chmod -x /etc/X11/Xsession.d/98vboxadd-xclient
+sed -i 's,^[[:space:]]*/usr/bin/VBoxClient[[:space:]]\+--\(draganddrop\|seamless\).*$,#&,' \
+    /etc/X11/Xsession.d/98vboxadd-xclient
+
 mkdir -p /usr/local/lib/cleanup
 cat "$srcdir/files/usr_local_lib_cleanup_cleanup-shutdown.sh" \
     > /usr/local/lib/cleanup/cleanup-shutdown.sh
