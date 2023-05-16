@@ -10,7 +10,11 @@ runuser -l -s /bin/sh \
         -c 'exec /bin/sh -e /usr/local/lib/cleanup/cleanup-shutdown-user.sh' \
         -- root < /dev/null
 
-find /var/cache -mindepth 1 -delete
+find \
+    /etc/NetworkManager/system-connections /var/lib/NetworkManager \
+    /var/cache \
+    -mindepth 1 -delete
+
 find /var/log -mindepth 1 -type f -name '*.[123456789]*' -delete
 find /var/log -mindepth 1 -type f -exec truncate --size=0 '{}' +
 
