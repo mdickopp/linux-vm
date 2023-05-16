@@ -79,6 +79,8 @@ cat "$srcdir/files/etc_gdm3_greeter.dconf-defaults" \
 cat "$srcdir/files/etc_systemd_user_setup-user.service" \
     > /etc/systemd/user/setup-user.service
 
+printf 'DefaultTimeoutStopSec=5s\n' >> /etc/systemd/system.conf
+
 sed -i '/GRUB_CMDLINE_LINUX_DEFAULT[[:space:]=]/c\
 GRUB_CMDLINE_LINUX_DEFAULT=""' /etc/default/grub
 
