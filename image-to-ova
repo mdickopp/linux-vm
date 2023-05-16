@@ -199,7 +199,8 @@ cat > "$out.ovf" <<EOF
       <ovf:Info>Complete VirtualBox machine configuration in VirtualBox format</ovf:Info>
       <Hardware>
         <CPU count="4">
-          <PAE enabled="false"/>
+          <PAE enabled="true"/>
+          <NestedHWVirt enabled="true"/>
           <LongMode enabled="true"/>
           <X2APIC enabled="true"/>
           <HardwareVirtExLargePages enabled="true"/>
