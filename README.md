@@ -6,7 +6,7 @@ workshow, etc.
 
 The scripts should be run on a Debian system. Furthermore, `create-vm`
 depends on the _debootstrap_ package, and `image-to-ova` depends on the
-_qemu-utils_ package.
+_uuid-runtime_ and _qemu-utils_ packages.
 
 ## Building the Image
 
