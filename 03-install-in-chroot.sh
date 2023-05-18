@@ -69,6 +69,9 @@ cat "$srcdir/files/etc_gdm3_greeter.dconf-defaults" \
 
 rm -f /etc/skel/.face* /etc/skel/.bash_logout
 patch --posix -f -d /etc/skel -F0 -N -p1 -u < "$srcdir/files/etc_skel_.bashrc.diff"
+mkdir -p /etc/skel/.config/emacs
+cat "$srcdir/files/etc_skel_.config_emacs_init.el" \
+    > /etc/skel/.config/emacs/init.el
 
 cat "$srcdir/files/etc_systemd_user_setup-user.service" \
     > /etc/systemd/user/setup-user.service

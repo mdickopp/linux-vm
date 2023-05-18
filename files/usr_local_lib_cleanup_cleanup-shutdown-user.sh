@@ -1,5 +1,11 @@
-rm -f .*_history .lesshst .vboxclient-*
-rm -fr .cache .config/dconf .config/pulse
+rm -f .*_history .lesshst .vboxclient-* .viminfo
+rm -fr \
+   .cache \
+   .config/dconf \
+   .config/emacs/auto-save-list \
+   .config/emacs/eln-cache \
+   .config/pulse
+find \( -name '.#*' -o -name '*~' -o -name '#*#' -o -name '*.swp' \) ! -type d -delete || :
 
 test "$(id -u)" != 0 || exit 0
 
