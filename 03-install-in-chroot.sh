@@ -132,6 +132,10 @@ grub-install "$imgdev"
 # Perform cleanup
 ##############################################################################
 
+rm -f \
+   /var/log/alternatives.log \
+   /var/log/dpkg.log \
+   /var/log/fontconfig.log
 rm -fr \
    /etc/network \
    /var/log/bootstrap.log \

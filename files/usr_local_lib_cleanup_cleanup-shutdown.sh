@@ -15,6 +15,7 @@ find \
     /var/cache \
     -mindepth 1 -delete
 
+rm -fr /var/log/apt
 find /var/log -mindepth 1 -type f -name '*.[123456789]*' -delete
 find /var/log -mindepth 1 -type f -exec truncate --size=0 '{}' +
 

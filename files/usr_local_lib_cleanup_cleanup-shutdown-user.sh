@@ -12,6 +12,7 @@ rm -fr \
    .config/pulse \
    .local/share/gvfs-metadata \
    .local/share/org.gnome.TextEditor \
+   .local/share/xorg \
    .local/state
 find \( -name '.#*' -o -name '*~' -o -name '#*#' -o -name '*.swp' \) ! -type d -delete || :
 
