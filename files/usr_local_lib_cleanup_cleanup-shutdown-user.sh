@@ -10,6 +10,7 @@ rm -fr \
    .config/emacs/auto-save-list \
    .config/emacs/eln-cache \
    .config/pulse \
+   .local/share/gvfs-metadata \
    .local/share/org.gnome.TextEditor \
    .local/state
 find \( -name '.#*' -o -name '*~' -o -name '#*#' -o -name '*.swp' \) ! -type d -delete || :
