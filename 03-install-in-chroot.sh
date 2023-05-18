@@ -85,7 +85,7 @@ chmod -x /etc/X11/Xsession.d/98vboxadd-xclient
 sed -i 's,^[[:space:]]*/usr/bin/VBoxClient[[:space:]]\+--\(draganddrop\|seamless\).*$,#&,' \
     /etc/X11/Xsession.d/98vboxadd-xclient
 
-mkdir -p /usr/local/lib/cleanup
+mkdir -p /usr/local/lib/cleanup /usr/local/share/applications
 cat "$srcdir/files/usr_local_lib_cleanup_cleanup-shutdown.sh" \
     > /usr/local/lib/cleanup/cleanup-shutdown.sh
 cat "$srcdir/files/usr_local_lib_cleanup_cleanup-shutdown-user.sh" \
@@ -95,6 +95,14 @@ cat "$srcdir/files/usr_local_lib_cleanup_setup-user.sh" \
 cat "$srcdir/files/usr_local_sbin_cleanup-shutdown" \
     > /usr/local/sbin/cleanup-shutdown
 chmod +x /usr/local/sbin/cleanup-shutdown
+for i in emacs-mail emacs-term emacsclient emacsclient-mail; do
+    cat > "/usr/local/share/applications/$i.desktop" <<EOF
+[Desktop Entry]
+Name=$i
+Type=Application
+Hidden=true
+EOF
+done
 
 systemctl --no-reload --force --global enable setup-user.service
 

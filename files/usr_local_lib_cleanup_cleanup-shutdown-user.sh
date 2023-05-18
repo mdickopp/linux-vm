@@ -17,16 +17,8 @@ find \( -name '.#*' -o -name '*~' -o -name '#*#' -o -name '*.swp' \) ! -type d -
 
 test "$(id -u)" != 0 || exit 0
 
-mkdir -p .config .local/share/applications/
-
+mkdir -p .config
 : > .config/.setup-user
-
-for i in emacs-mail emacs-term emacsclient emacsclient-mail; do
-    cat > .local/share/applications/"$i.desktop" <<\EOF
-[Desktop Entry]
-Hidden=true
-EOF
-done
 
 mkdir -p -m a=,u=rwx,g=rx .local/share/org.gnome.TextEditor
 : > .local/share/org.gnome.TextEditor/session.gvariant
