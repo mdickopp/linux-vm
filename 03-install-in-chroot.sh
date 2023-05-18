@@ -59,16 +59,6 @@ apt-get -y clean
 
 
 ##############################################################################
-# Set up user accounts
-##############################################################################
-
-adduser --quiet --disabled-password --gecos User user
-adduser user vboxsf
-passwd -d root
-passwd -d user
-
-
-##############################################################################
 # Configure target system
 ##############################################################################
 
@@ -76,6 +66,10 @@ cat "$srcdir/files/etc_gdm3_daemon.conf" \
     > /etc/gdm3/daemon.conf
 cat "$srcdir/files/etc_gdm3_greeter.dconf-defaults" \
     > /etc/gdm3/greeter.dconf-defaults
+
+rm -f /etc/skel/.face* /etc/skel/.bash_logout
+patch --posix -f -d /etc/skel -F0 -N -p1 -u < "$srcdir/files/etc_skel_.bashrc.diff"
+
 cat "$srcdir/files/etc_systemd_user_setup-user.service" \
     > /etc/systemd/user/setup-user.service
 
@@ -100,6 +94,18 @@ cat "$srcdir/files/usr_local_sbin_cleanup-shutdown" \
 chmod +x /usr/local/sbin/cleanup-shutdown
 
 systemctl --no-reload --force --global enable setup-user.service
+
+
+##############################################################################
+# Set up user accounts
+##############################################################################
+
+adduser --quiet --disabled-password --gecos User user
+adduser user vboxsf
+passwd -d root
+passwd -d user
+
+cp --recursive --preserve=mode /etc/skel/.[!.]* /root
 
 
 ##############################################################################

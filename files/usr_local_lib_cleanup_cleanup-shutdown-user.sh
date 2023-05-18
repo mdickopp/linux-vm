@@ -1,4 +1,4 @@
-rm -f .*_history .lesshst .face .face.icon .vboxclient-*
+rm -f .*_history .lesshst .vboxclient-*
 rm -fr .cache .config/dconf .config/pulse
 
 test "$(id -u)" != 0 || exit 0

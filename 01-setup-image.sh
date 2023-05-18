@@ -71,7 +71,7 @@ imgdev=$(losetup --partscan --show --find "$image")
 
 
 ##############################################################################
-# Execute next stage as root user
+# Execute next stage in new mount namespace
 ##############################################################################
 
 env \
