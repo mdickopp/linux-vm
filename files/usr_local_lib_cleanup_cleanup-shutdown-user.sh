@@ -13,7 +13,8 @@ rm -fr \
    .local/share/gvfs-metadata \
    .local/share/org.gnome.TextEditor \
    .local/share/xorg \
-   .local/state
+   .local/state \
+   .mozilla
 find \( -name '.#*' -o -name '*~' -o -name '#*#' -o -name '*.swp' \) ! -type d -delete || :
 
 test "$(id -u)" != 0 || exit 0

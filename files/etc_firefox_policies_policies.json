@@ -1,0 +1,13 @@
+{
+  "policies": {
+    "DisableProfileImport": true,
+    "EnableTrackingProtection": {
+      "Value": true
+    },
+    "EncryptedMediaExtensions": {
+      "Enabled": false,
+      "Locked": true
+    },
+    "NoDefaultBookmarks": true
+  }
+}

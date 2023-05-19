@@ -62,6 +62,11 @@ apt-get -y clean
 # Configure target system
 ##############################################################################
 
+mkdir -p /etc/firefox/policies
+cat "$srcdir/files/etc_firefox_firefox.js" \
+    >> /etc/firefox/firefox.js
+cat "$srcdir/files/etc_firefox_policies_policies.json" \
+    > /etc/firefox/policies/policies.json
 cat "$srcdir/files/etc_gdm3_daemon.conf" \
     > /etc/gdm3/daemon.conf
 cat "$srcdir/files/etc_gdm3_greeter.dconf-defaults" \
