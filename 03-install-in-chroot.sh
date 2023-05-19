@@ -110,6 +110,12 @@ EOF
 done
 
 systemctl --no-reload --force --global enable setup-user.service
+systemctl mask \
+          hibernate.target \
+          hybrid-sleep.target \
+          sleep.target \
+          suspend-then-hibernate.target \
+          suspend.target
 
 
 ##############################################################################
