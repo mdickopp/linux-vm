@@ -1,3 +1,3 @@
 # Authors
 
-- Martin Dickopp <martin@zero-based.org>
+- Martin Dickopp (martin@zero-based.org)
