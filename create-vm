@@ -96,18 +96,28 @@ truncate -s 16G /dev/stdout > "$image"
 # Execute next stage as root user
 ##############################################################################
 
+rc=0
+
 if sudo -V > /dev/null 2>&1; then
-    exec \
-        env \
+    env \
         image=$(realpath --quiet --canonicalize-existing "$image") \
         srcdir="$srcdir" \
         sudo -i --preserve-env=image,srcdir \
-        /bin/sh -e "$srcdir/01-setup-image.sh"
+        /bin/sh -e "$srcdir/01-setup-image.sh" \
+        || rc="$?"
+else
+    env \
+        image=$(realpath --quiet --canonicalize-existing "$image") \
+        srcdir="$srcdir" \
+        su -l -s /bin/sh -w image,srcdir \
+        -c 'exec /bin/sh -e "$srcdir/01-setup-image.sh"' \
+        || rc="$?"
 fi
 
-exec \
-    env \
-    image=$(realpath --quiet --canonicalize-existing "$image") \
-    srcdir="$srcdir" \
-    su -l -s /bin/sh -w image,srcdir \
-    -c 'exec /bin/sh -e "$srcdir/01-setup-image.sh"'
+if test "$rc" -ne 0; then
+    printf "\\n%s: Failed to create '%s'.\\n" "${0##*/}" "$image" >&2
+    exit "$rc"
+fi
+
+printf "\\n%s: Image file '%s' created.\\n" "${0##*/}" "$image"
+exit 0
