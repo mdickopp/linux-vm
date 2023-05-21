@@ -30,7 +30,8 @@ Usage: ${0##*/} [OPTION]... IMAGE_FILENAME
 Creates a VM image based on Debian 12 (bookworm).
 
 Options:
-  -h, -?, --help    Display this help test and exit.
+  --with-vscodium    Install VSCodium into VM image.
+  -h, -?, --help     Display this help test and exit.
 
 EOF
 }
@@ -59,11 +60,19 @@ esac
 # Process command line
 ##############################################################################
 
+features=/
+
 while test "$#" -gt 0; do
     case $1 in
         -h|-\?|--help|--hel|--he|--h)
             show_usage
             exit 0 ;;
+        --with-vscodium|--with-vscodiu|--with-vscodi|--with-vscod|--with-vsco|--with-vsc|--with-vs|--with-v)
+            case $features in
+                */vscodium/*) ;;
+                *) features=${features}vscodium/ ;;
+            esac
+            shift ;;
         -)
             break ;;
         --)
@@ -100,16 +109,18 @@ rc=0
 
 if sudo -V > /dev/null 2>&1; then
     env \
+        features="$features" \
         image=$(realpath --quiet --canonicalize-existing "$image") \
         srcdir="$srcdir" \
-        sudo -i --preserve-env=image,srcdir \
+        sudo -i --preserve-env=features,image,srcdir \
         /bin/sh -e "$srcdir/01-setup-image.sh" \
         || rc="$?"
 else
     env \
+        features="$features" \
         image=$(realpath --quiet --canonicalize-existing "$image") \
         srcdir="$srcdir" \
-        su -l -s /bin/sh -w image,srcdir \
+        su -l -s /bin/sh -w features,image,srcdir \
         -c 'exec /bin/sh -e "$srcdir/01-setup-image.sh"' \
         || rc="$?"
 fi

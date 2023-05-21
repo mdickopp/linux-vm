@@ -66,7 +66,7 @@ sleep-inactive-battery-type='nothing'
 disable-user-extensions=false
 disabled-extensions=@as []
 enabled-extensions=['workspace-indicator@gnome-shell-extensions.gcampax.github.com', 'no-overview@fthx']
-favorite-apps=['org.gnome.Terminal.desktop', 'org.gnome.Nautilus.desktop', 'firefox.desktop']
+favorite-apps=[@FAVORITE_APPS@]
 
 [org/gnome/shell/app-switcher]
 current-workspace-only=true

@@ -24,5 +24,3 @@ mkdir -p .config
 
 mkdir -p -m a=,u=rwx,g=rx .local/share/org.gnome.TextEditor
 : > .local/share/org.gnome.TextEditor/session.gvariant
-
-exit 0

@@ -1,6 +1,25 @@
 ##############################################################################
-# Install required packages, remove unneeded packages
+# Feature-dependent variables
 ##############################################################################
+
+extra_packages=
+favorite_apps="'org.gnome.Terminal.desktop', 'org.gnome.Nautilus.desktop', 'firefox.desktop'"
+
+
+##############################################################################
+# Install packages, remove unneeded packages
+##############################################################################
+
+case $features in
+    */vscodium/*)
+        mkdir -p /usr/local/share/keyrings
+        cat "$srcdir/files/etc_apt_sources.list.d_vscodium.list" \
+            > /etc/apt/sources.list.d/vscodium.list
+        cat "$srcdir/files/usr_local_share_keyrings_vscodium.gpg" \
+            > /usr/local/share/keyrings/vscodium.gpg
+        extra_packages="$extra_packages codium fonts-jetbrains-mono"
+        favorite_apps="$favorite_apps, 'codium.desktop'" ;;
+esac
 
 apt-get -y update
 apt-get -y -o DPkg::Options::=--force-confold --purge dist-upgrade
@@ -10,6 +29,7 @@ aptitude -y markauto '~i(~slibs|~slocalization|~soldlibs|~sperl|~n-base\$|!~E)'
 apt-get -y -o DPkg::Options::=--force-confold --purge install \
         linux-image-amd64
 
+set -f
 apt-get -y -o DPkg::Options::=--force-confold --purge --no-install-recommends install \
         bind9-host \
         build-essential \
@@ -50,7 +70,9 @@ apt-get -y -o DPkg::Options::=--force-confold --purge --no-install-recommends in
         xserver-xorg-input-all \
         xserver-xorg-input-wacom \
         xz-utils \
-        zip
+        zip \
+        $extra_packages
+set +f
 
 apt-get -y --purge purge \
         tasksel
@@ -94,9 +116,16 @@ sed -i 's,^[[:space:]]*/usr/bin/VBoxClient[[:space:]]\+--\(draganddrop\|seamless
 mkdir -p /usr/local/lib/cleanup /usr/local/share/applications
 cat "$srcdir/files/usr_local_lib_cleanup_cleanup-shutdown.sh" \
     > /usr/local/lib/cleanup/cleanup-shutdown.sh
-cat "$srcdir/files/usr_local_lib_cleanup_cleanup-shutdown-user.sh" \
-    > /usr/local/lib/cleanup/cleanup-shutdown-user.sh
-cat "$srcdir/files/usr_local_lib_cleanup_setup-user.sh" \
+{
+    cat "$srcdir/files/usr_local_lib_cleanup_cleanup-shutdown-user.sh"
+    case $features in
+        */vscodium/*)
+            cat "$srcdir/files/usr_local_lib_cleanup_cleanup-shutdown-user.sh+vscodium" ;;
+    esac
+    printf '\nexit 0\n'
+} > /usr/local/lib/cleanup/cleanup-shutdown-user.sh
+sed "s/@FAVORITE_APPS@/$favorite_apps/" \
+    "$srcdir/files/usr_local_lib_cleanup_setup-user.sh" \
     > /usr/local/lib/cleanup/setup-user.sh
 cat "$srcdir/files/usr_local_sbin_cleanup-shutdown" \
     > /usr/local/sbin/cleanup-shutdown
@@ -129,6 +158,24 @@ passwd -d root
 passwd -d user
 
 cp --recursive --preserve=mode /etc/skel/.[!.]* /root
+
+
+##############################################################################
+# Install VSCodium extensions (if VSCodium is installed)
+##############################################################################
+
+case $features in
+    */vscodium/*)
+        runuser -l -s /bin/sh \
+                -c 'codium --install-extension esbenp.prettier-vscode --install-extension PKief.material-icon-theme' \
+                user
+        mkdir -p  /usr/local/lib/vscodium/extensions
+        cp --recursive /home/user/.vscode-oss/extensions/* \
+           /usr/local/lib/vscodium/extensions
+        rm -fr \
+           /usr/local/lib/vscodium/extensions/extensions.json \
+           /home/user/.vscode-oss
+esac
 
 
 ##############################################################################

@@ -1,0 +1,1 @@
+deb [arch=amd64 signed-by=/usr/local/share/keyrings/vscodium.gpg] https://download.vscodium.com/debs vscodium main
