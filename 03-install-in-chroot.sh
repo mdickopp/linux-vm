@@ -13,6 +13,7 @@ apt-get -y -o DPkg::Options::=--force-confold --purge install \
 apt-get -y -o DPkg::Options::=--force-confold --purge --no-install-recommends install \
         bind9-host \
         build-essential \
+        curl \
         emacs \
         file \
         firefox/sid libnss3/sid \
