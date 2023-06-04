@@ -37,6 +37,7 @@ pref("browser.tabs.closeWindowWithLastTab", false);
 pref("browser.tabs.crashReporting.sendReport", false);
 pref("browser.tabs.firefox-view", false);
 pref("browser.tabs.warnOnClose", false);
+pref("browser.toolbars.bookmarks.visibility", "never");
 pref("browser.urlbar.speculativeConnect.enabled", false);
 pref("browser.vpn_promo.enabled", false);
 pref("browser.warnOnQuit", false);
