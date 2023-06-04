@@ -58,7 +58,7 @@ the username _user_ exists in the virtual machine; its password is empty as
 well.
 
 The command `cleanup-shutdown` (to be run as _root_) can be used to clean up
-the virtual machine after further setup (e.g., afetr installing additional
+the virtual machine after further setup (e.g., after installing additional
 software). It removes log files, caches, and history files, resets the
 desktop environment configuration, discards unused disk blocks, and shuts
 down the virtual machine.
