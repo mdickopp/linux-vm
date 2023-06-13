@@ -267,7 +267,7 @@ EOF
 ##############################################################################
 
 for ext in ovf vmdk; do
-    printf 'SHA1 (%s) = %s\n' "$name.$ext" "$(sha1sum "$out.$ext" | cut -f1 -d' ')"
+    printf 'SHA1(%s)= %s\n' "$name.$ext" "$(sha1sum "$out.$ext" | cut -f1 -d' ')"
 done > "$out.mf"
 
 
