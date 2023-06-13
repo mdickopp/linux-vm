@@ -279,6 +279,7 @@ exec \
     tar \
     --create \
     --format=ustar \
+    --absolute-names \
     --transform='s,.*/,,' \
     --file="$out.ova" \
     --force-local \
