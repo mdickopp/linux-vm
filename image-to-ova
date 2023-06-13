@@ -84,7 +84,12 @@ test "$#" -eq 0 || err_usage 'Unrecognized argument:' "$1"
 # Convert image file
 ##############################################################################
 
-qemu-img convert -f "$format" -O vmdk "$image" "$out.vmdk"
+qemu-img \
+    convert \
+    -f "$format" \
+    -O vmdk \
+    -o subformat=streamOptimized \
+    "$image" "$out.vmdk"
 
 
 ##############################################################################
@@ -104,7 +109,7 @@ cat > "$out.ovf" <<EOF
   </References>
   <DiskSection>
     <Info>List of the virtual disks used in the package</Info>
-    <Disk ovf:capacity="$disk_size" ovf:diskId="vmdisk1" ovf:fileRef="file1" ovf:format="http://www.vmware.com/interfaces/specifications/vmdk.html#monolithicSparse" vbox:uuid="$disk_uuid"/>
+    <Disk ovf:capacity="$disk_size" ovf:diskId="vmdisk1" ovf:fileRef="file1" ovf:format="http://www.vmware.com/interfaces/specifications/vmdk.html#streamOptimized" vbox:uuid="$disk_uuid"/>
   </DiskSection>
   <NetworkSection>
     <Info>Logical networks used in the package</Info>
