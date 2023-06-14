@@ -51,6 +51,9 @@ optimized for VirtualBox, but may work in other virtualization software.
 Note that `create-vm` installs the VirtualBox guest utilities into the
 image.
 
+If the `VBoxManage` utility is installed, `create-vm` uses it internally to
+convert the image file, otherwise it uses the `qemu-img` command.
+
 ## The Virtual Machine
 
 The password of the _root_ user is empty. An unprivileged user account with

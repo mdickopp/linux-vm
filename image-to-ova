@@ -84,19 +84,43 @@ test "$#" -eq 0 || err_usage 'Unrecognized argument:' "$1"
 # Convert image file
 ##############################################################################
 
-qemu-img \
-    convert \
-    -f "$format" \
-    -O vmdk \
-    -o subformat=streamOptimized \
-    "$image" "$out.vmdk"
+if test "$format" = raw; then
+    raw_image="$image"
+else
+    raw_image="$out.img"
+    qemu-img \
+        convert \
+        -f "$format" \
+        -O raw \
+        "$image" "$raw_image"
+fi
+
+disk_size=$(stat --dereference --printf='%s' "$raw_image")
+
+if VBoxManage -V > /dev/null 2>&1; then
+    rm -f "$out.vmdk"
+    VBoxManage \
+        convertfromraw \
+        stdin \
+        "$out.vmdk" \
+        "$disk_size" \
+        --format=VMDK \
+        --variant=Stream \
+        < "$raw_image"
+else
+    qemu-img \
+        convert \
+        -f raw \
+        -O vmdk \
+        -o subformat=streamOptimized \
+        "$raw_image" "$out.vmdk"
+fi
 
 
 ##############################################################################
 # Generate OVF file
 ##############################################################################
 
-disk_size=$(stat --dereference --printf='%s' "$image")
 disk_uuid=$(uuidgen --random)
 vm_uuid=$(uuidgen --random)
 timestamp=$(date --utc +%FT%TZ)
