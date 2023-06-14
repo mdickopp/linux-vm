@@ -70,4 +70,4 @@
 -  fi
 -fi
 +# environment variables
-+export LESS=-MSi
++export LESS=-MRSXi
