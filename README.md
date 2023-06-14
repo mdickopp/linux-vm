@@ -8,6 +8,9 @@ The scripts should be run on a Debian system. Furthermore, `create-vm`
 depends on the _debootstrap_ package, and `image-to-ova` depends on the
 _uuid-runtime_ and _qemu-utils_ packages.
 
+Type `./create-vm --help` or `./image-to-ova --help` to display a list of
+all available options.
+
 ## Building the Image
 
 The command
