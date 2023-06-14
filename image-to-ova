@@ -24,6 +24,7 @@ Converts a VM image file to an OVA virtual appliance.
 
 Options:
   -f FORMAT, --format=FORMAT    Format of the image to convert [default: raw].
+  --no-manifest                 Omit manifest from virtual appliance.
   -h, -?, --help                Display this help test and exit.
 
 EOF
@@ -35,6 +36,7 @@ EOF
 ##############################################################################
 
 format=raw
+manifest=t
 
 while test "$#" -gt 0; do
     case $1 in
@@ -49,6 +51,9 @@ while test "$#" -gt 0; do
             test "$#" -gt 0 || err_usage 'Option --format requires an argument'
             format=$1
             shift ;;
+        --no-manifest|--no-manifes|--no-manife|--no-manif|--no-mani|--no-man|--no-ma|--no-m|--no-|--no|--n)
+            shift
+            manifest= ;;
         -h|-\?|--help|--hel|--he|--h)
             show_usage
             exit 0 ;;
@@ -295,9 +300,11 @@ EOF
 # Generate manifest file
 ##############################################################################
 
-for ext in ovf vmdk; do
-    printf 'SHA1(%s)= %s\n' "$name.$ext" "$(sha1sum "$out.$ext" | cut -f1 -d' ')"
-done > "$out.mf"
+if test -n "$manifest"; then
+    for ext in ovf vmdk; do
+        printf 'SHA1(%s)= %s\n' "$name.$ext" "$(sha1sum "$out.$ext" | cut -f1 -d' ')"
+    done > "$out.mf"
+fi
 
 
 ##############################################################################
@@ -315,4 +322,4 @@ exec \
     --owner=root:0 --group=root:0 \
     --mode=a=r,u+w \
     --mtime="$(date --utc '+%F %T')" \
-    "$out.ovf" "$out.vmdk" "$out.mf"
+    "$out.ovf" "$out.vmdk" ${manifest:+"$out.mf"}
