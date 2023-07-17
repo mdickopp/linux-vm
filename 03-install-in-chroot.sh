@@ -38,7 +38,6 @@ apt-get -y -o DPkg::Options::=--force-confold --purge --no-install-recommends in
         file \
         firefox/sid libnss3/sid \
         fonts-liberation \
-        fonts-liberation2 \
         fonts-noto \
         git \
         gnome-core \
