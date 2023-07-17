@@ -36,7 +36,6 @@ apt-get -y -o DPkg::Options::=--force-confold --purge --no-install-recommends in
         curl \
         emacs \
         file \
-        firefox/sid libnss3/sid \
         fonts-liberation \
         fonts-noto \
         git \
@@ -63,7 +62,6 @@ apt-get -y -o DPkg::Options::=--force-confold --purge --no-install-recommends in
         traceroute \
         unzip \
         vim-nox \
-        virtualbox-guest-utils/sid virtualbox-guest-x11/sid \
         xauth \
         xserver-xorg \
         xserver-xorg-input-all \
@@ -72,6 +70,11 @@ apt-get -y -o DPkg::Options::=--force-confold --purge --no-install-recommends in
         zip \
         $extra_packages
 set +f
+
+apt-get -y -t sid -o DPkg::Options::=--force-confold --purge --no-install-recommends install \
+        firefox \
+        virtualbox-guest-utils \
+        virtualbox-guest-x11
 
 apt-get -y --purge purge \
         tasksel
