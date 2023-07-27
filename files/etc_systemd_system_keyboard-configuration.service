@@ -1,0 +1,26 @@
+[Unit]
+Description=Open keyboard configuration dialog
+ConditionPathExists=/dev/tty2
+ConditionPathExists=/etc/.keyboard-configuration
+DefaultDependencies=no
+Requires=sysinit.target
+Conflicts=shutdown.target
+After=sysinit.target
+Before=basic.target shutdown.target
+
+[Service]
+Type=oneshot
+ExecStartPre=/bin/chvt 2
+ExecStart=/usr/sbin/dpkg-reconfigure --frontend=dialog --priority=high keyboard-configuration
+ExecStartPost=/bin/rm -f /etc/.keyboard-configuration
+StandardInput=tty
+StandardOutput=inherit
+StandardError=inherit
+TTYPath=/dev/tty2
+TTYReset=yes
+TTYVHangup=yes
+TTYVTDisallocate=yes
+TimeoutStartSec=5min
+
+[Install]
+WantedBy=basic.target

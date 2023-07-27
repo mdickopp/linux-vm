@@ -34,6 +34,7 @@ apt-get -y -o DPkg::Options::=--force-confold --purge --no-install-recommends in
         bind9-host \
         build-essential \
         curl \
+        dialog \
         emacs \
         file \
         fonts-liberation \
@@ -46,6 +47,7 @@ apt-get -y -o DPkg::Options::=--force-confold --purge --no-install-recommends in
         grub-pc \
         iproute2 \
         iputils-ping \
+        kbd \
         libcap2-bin \
         locales \
         lsof \
@@ -77,7 +79,8 @@ apt-get -y -t sid -o DPkg::Options::=--force-confold --purge --no-install-recomm
         virtualbox-guest-x11
 
 apt-get -y --purge purge \
-        tasksel
+        tasksel \
+        whiptail
 
 apt-get -y --purge autoremove
 apt-get -y clean
@@ -103,12 +106,14 @@ mkdir -p /etc/skel/.config/emacs
 cat "$srcdir/files/etc_skel_.config_emacs_init.el" \
     > /etc/skel/.config/emacs/init.el
 
+cat "$srcdir/files/etc_systemd_system_keyboard-configuration.service" \
+    > /etc/systemd/system/keyboard-configuration.service
 cat "$srcdir/files/etc_systemd_user_setup-user.service" \
     > /etc/systemd/user/setup-user.service
 
 printf 'DefaultTimeoutStopSec=5s\n' >> /etc/systemd/system.conf
 
-sed -i '/GRUB_CMDLINE_LINUX_DEFAULT[[:space:]=]/c\
+sed -i '/^GRUB_CMDLINE_LINUX_DEFAULT[[:space:]=]/c\
 GRUB_CMDLINE_LINUX_DEFAULT=""' /etc/default/grub
 
 chmod -x /etc/X11/Xsession.d/98vboxadd-xclient
@@ -141,6 +146,7 @@ Hidden=true
 EOF
 done
 
+systemctl --no-reload --force enable keyboard-configuration.service
 systemctl --no-reload --force --global enable setup-user.service
 systemctl mask \
           hibernate.target \

@@ -8,10 +8,6 @@ custom-font='Liberation Mono 11'
 [org/gnome/desktop/calendar]
 show-weekdate=true
 
-[org/gnome/desktop/input-sources]
-sources=[('xkb', 'us'), ('xkb', 'de+nodeadkeys')]
-xkb-options=['compose:rctrl']
-
 [org/gnome/desktop/interface]
 clock-show-seconds=true
 clock-show-weekday=true
