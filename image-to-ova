@@ -260,7 +260,7 @@ cat > "$out.ovf" <<EOF
           <Order position="3" device="None"/>
           <Order position="4" device="None"/>
         </Boot>
-        <Display controller="VMSVGA" VRAMSize="16"/>
+        <Display controller="VMSVGA" VRAMSize="128"/>
         <BIOS>
           <IOAPIC enabled="true"/>
           <SmbiosUuidLittleEndian enabled="true"/>
