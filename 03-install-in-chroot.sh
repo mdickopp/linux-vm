@@ -175,6 +175,7 @@ cp --recursive --preserve=mode /etc/skel/.[!.]* /root
 case $features in
     */vscodium/*)
         runuser -l -s /bin/sh \
+                -w http_proxy,https_proxy,no_proxy \
                 -c 'codium --install-extension esbenp.prettier-vscode --install-extension PKief.material-icon-theme' \
                 user
         mkdir -p  /usr/local/lib/vscodium/extensions
