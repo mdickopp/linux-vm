@@ -59,6 +59,10 @@ convert the image file, otherwise it uses the `qemu-img` command.
 
 ## The Virtual Machine
 
+When the virtual machine is started for the first time (or after the
+`cleanup-shutdown` command has been used; see below), a dialog is shown
+during bootup to select the keyboard layout and variant.
+
 The password of the _root_ user is empty. An unprivileged user account with
 the username _user_ exists in the virtual machine; its password is empty as
 well.
@@ -69,5 +73,5 @@ software). It removes log files, caches, and history files, resets the
 desktop environment configuration, discards unused disk blocks, and shuts
 down the virtual machine.
 
-Discarding usused disk blocks may take several minutes. However, it
-decreases the size of the virtual image file.
+Discarding usused disk blocks decreases the size of the virtual image file.
+It may take several minutes.
