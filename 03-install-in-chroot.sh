@@ -39,6 +39,7 @@ apt-get -y -o DPkg::Options::=--force-confold --purge --no-install-recommends in
         file \
         fonts-liberation \
         fonts-noto \
+        gedit \
         git \
         gnome-core \
         gnome-shell-extension-prefs \
