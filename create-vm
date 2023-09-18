@@ -30,6 +30,7 @@ Usage: ${0##*/} [OPTION]... IMAGE_FILENAME
 Creates a VM image based on Debian 12 (bookworm).
 
 Options:
+  --with-rust        Install Rust language into VM image.
   --with-vscodium    Install VSCodium into VM image.
   -h, -?, --help     Display this help test and exit.
 
@@ -67,6 +68,12 @@ while test "$#" -gt 0; do
         -h|-\?|--help|--hel|--he|--h)
             show_usage
             exit 0 ;;
+        --with-rust|--with-rus|--with-ru|--with-r)
+            case $features in
+                */rust/*) ;;
+                *) features=${features}rust/ ;;
+            esac
+            shift ;;
         --with-vscodium|--with-vscodiu|--with-vscodi|--with-vscod|--with-vsco|--with-vsc|--with-vs|--with-v)
             case $features in
                 */vscodium/*) ;;

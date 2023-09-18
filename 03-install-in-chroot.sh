@@ -106,6 +106,16 @@ patch --posix -f -d /etc/skel -F0 -N -p1 -u < "$srcdir/files/etc_skel_.bashrc.di
 mkdir -p /etc/skel/.config/emacs
 cat "$srcdir/files/etc_skel_.config_emacs_init.el" \
     > /etc/skel/.config/emacs/init.el
+case $features in
+    */rust/*)
+        cat >> /etc/skel/.profile <<\EOF
+
+PATH="$PATH:/opt/rust/toolchains/stable-x86_64-unknown-linux-gnu/bin"
+MANPATH="$(manpath -q):/opt/rust/toolchains/stable-x86_64-unknown-linux-gnu/share/man"
+export MANPATH
+EOF
+        printf 'RUSTUP_HOME=/opt/rust\n' >> /etc/environment ;;
+esac
 
 cat "$srcdir/files/etc_systemd_system_keyboard-configuration.service" \
     > /etc/systemd/system/keyboard-configuration.service
@@ -124,14 +134,20 @@ sed -i 's,^[[:space:]]*/usr/bin/VBoxClient[[:space:]]\+--\(draganddrop\|seamless
 mkdir -p /usr/local/lib/cleanup /usr/local/share/applications
 cat "$srcdir/files/usr_local_lib_cleanup_cleanup-shutdown.sh" \
     > /usr/local/lib/cleanup/cleanup-shutdown.sh
-{
-    cat "$srcdir/files/usr_local_lib_cleanup_cleanup-shutdown-user.sh"
-    case $features in
-        */vscodium/*)
-            cat "$srcdir/files/usr_local_lib_cleanup_cleanup-shutdown-user.sh+vscodium" ;;
-    esac
-    printf '\nexit 0\n'
-} > /usr/local/lib/cleanup/cleanup-shutdown-user.sh
+
+sed_expr=
+case $features in
+    */rust/*) sed_expr="/^#\(END_\)\?WITH_RUST#/d;$sed_expr" ;;
+    *) sed_expr="/^#WITH_RUST#/,/^#END_WITH_RUST#/d;$sed_expr" ;;
+esac
+case $features in
+    */vscodium/*) sed_expr="/^#\(END_\)\?WITH_VSCODIUM#/d;$sed_expr" ;;
+    *) sed_expr="/^#WITH_VSCODIUM#/,/^#END_WITH_VSCODIUM#/d;$sed_expr" ;;
+esac
+sed -e "$sed_expr" \
+    "$srcdir/files/usr_local_lib_cleanup_cleanup-shutdown-user.sh" \
+    > /usr/local/lib/cleanup/cleanup-shutdown-user.sh
+
 sed "s/@FAVORITE_APPS@/$favorite_apps/" \
     "$srcdir/files/usr_local_lib_cleanup_setup-user.sh" \
     > /usr/local/lib/cleanup/setup-user.sh
@@ -170,21 +186,43 @@ cp --recursive --preserve=mode /etc/skel/.[!.]* /root
 
 
 ##############################################################################
+# Install Rust (if requested)
+##############################################################################
+
+case $features in
+    */rust/*)
+        mkdir -p /opt/rust
+        chown user:user /opt/rust
+        runuser -l -s /bin/sh \
+                -w http_proxy,https_proxy,no_proxy \
+                -c 'curl --proto =https --tlsv1.2 -sSf -o rustup-init https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init && chmod +x rustup-init && RUSTUP_HOME=/opt/rust ./rustup-init -y --no-modify-path -c rust-src && rm -f rustup-init && rm -fr .cargo' \
+                user
+        chown -R root:root /opt/rust
+        rm -fr /opt/rust/downloads /opt/rust/tmp
+esac
+
+
+##############################################################################
 # Install VSCodium extensions (if VSCodium is installed)
 ##############################################################################
 
 case $features in
     */vscodium/*)
+        codium_install_extensions_cmd='codium --install-extension esbenp.prettier-vscode --install-extension PKief.material-icon-theme'
+        case $features in
+            */rust/*)
+                codium_install_extensions_cmd="$codium_install_extensions_cmd --install-extension rust-lang.rust-analyzer --install-extension tamasfe.even-better-toml" ;;
+        esac
         runuser -l -s /bin/sh \
                 -w http_proxy,https_proxy,no_proxy \
-                -c 'codium --install-extension esbenp.prettier-vscode --install-extension PKief.material-icon-theme' \
+                -c "$codium_install_extensions_cmd" \
                 user
         mkdir -p  /usr/local/lib/vscodium/extensions
         cp --recursive /home/user/.vscode-oss/extensions/* \
            /usr/local/lib/vscodium/extensions
         rm -fr \
            /usr/local/lib/vscodium/extensions/extensions.json \
-           /home/user/.vscode-oss
+           /home/user/.vscode-oss ;;
 esac
 
 
