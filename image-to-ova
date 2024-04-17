@@ -159,12 +159,12 @@ cat > "$out.ovf" <<EOF
         <vssd:ElementName>Virtual Hardware Family</vssd:ElementName>
         <vssd:InstanceID>0</vssd:InstanceID>
         <vssd:VirtualSystemIdentifier>$name</vssd:VirtualSystemIdentifier>
-        <vssd:VirtualSystemType>virtualbox-2.2</vssd:VirtualSystemType>
+        <vssd:VirtualSystemType>vmx-10</vssd:VirtualSystemType>
       </System>
       <Item>
         <rasd:Caption>4 virtual CPU</rasd:Caption>
         <rasd:Description>Number of virtual CPUs</rasd:Description>
-        <rasd:ElementName>4 virtual CPU</rasd:ElementName>
+        <rasd:ElementName>4 virtual CPUs</rasd:ElementName>
         <rasd:InstanceID>1</rasd:InstanceID>
         <rasd:ResourceType>3</rasd:ResourceType>
         <rasd:VirtualQuantity>4</rasd:VirtualQuantity>
@@ -205,7 +205,7 @@ cat > "$out.ovf" <<EOF
         <rasd:ResourceSubType>AHCI</rasd:ResourceSubType>
         <rasd:ResourceType>20</rasd:ResourceType>
       </Item>
-      <Item>
+      <Item ovf:required="false">
         <rasd:Address>0</rasd:Address>
         <rasd:Caption>usb</rasd:Caption>
         <rasd:Description>USB Controller</rasd:Description>
@@ -213,7 +213,7 @@ cat > "$out.ovf" <<EOF
         <rasd:InstanceID>6</rasd:InstanceID>
         <rasd:ResourceType>23</rasd:ResourceType>
       </Item>
-      <Item>
+      <Item ovf:required="false">
         <rasd:AddressOnParent>3</rasd:AddressOnParent>
         <rasd:AutomaticAllocation>false</rasd:AutomaticAllocation>
         <rasd:Caption>sound</rasd:Caption>
