@@ -50,7 +50,7 @@ volume-mute=['AudioMute']
 volume-up=['AudioRaiseVolume']
 
 [org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0]
-binding='<Super>t'
+binding='<Ctrl><Alt>t'
 command='x-terminal-emulator'
 name='Launch Terminal'
 
