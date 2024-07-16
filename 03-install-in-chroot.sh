@@ -89,6 +89,7 @@ apt-get -y --purge purge \
 
 apt-get -y --purge autoremove
 apt-get -y clean
+aptitude forget-new
 
 
 ##############################################################################
