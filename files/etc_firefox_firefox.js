@@ -45,6 +45,7 @@ pref("browser.warnOnQuitShortcut", false);
 pref("browser.xul.error_pages.expert_bad_cert", true);
 pref("datareporting.healthreport.uploadEnabled", false);
 pref("datareporting.policy.dataSubmissionEnabled", false);
+pref("dom.private-attribution.submission.enabled", false);
 pref("extensions.blocklist.enabled", false);
 pref("extensions.getAddons.cache.enabled", false);
 pref("extensions.pocket.enabled", false);
