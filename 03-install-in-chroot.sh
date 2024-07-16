@@ -36,6 +36,7 @@ apt-get -y -o DPkg::Options::=--force-confold --purge --no-install-recommends in
         curl \
         dialog \
         emacs \
+        fasttrack-archive-keyring \
         file \
         firefox-esr \
         fonts-liberation \
@@ -75,7 +76,10 @@ apt-get -y -o DPkg::Options::=--force-confold --purge --no-install-recommends in
         $extra_packages
 set +f
 
-apt-get -y -t sid -o DPkg::Options::=--force-confold --purge --no-install-recommends install \
+cat "$srcdir/files/etc_apt_sources.list+fasttrack" \
+    >> /etc/apt/sources.list
+apt-get -y update
+apt-get -y -o DPkg::Options::=--force-confold --purge --no-install-recommends install \
         virtualbox-guest-utils \
         virtualbox-guest-x11
 

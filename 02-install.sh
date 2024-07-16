@@ -46,8 +46,6 @@ hostname > target/etc/hostname
 # FIXME: Do not hard code timezone
 ln -sf /usr/share/zoneinfo/Europe/Berlin target/etc/localtime
 
-cat "$srcdir/files/etc_apt_preferences" \
-    > target/etc/apt/preferences
 cat "$srcdir/files/etc_apt_sources.list" \
     > target/etc/apt/sources.list
 cat "$srcdir/files/etc_default_grub.d_fast-boot.cfg" \
