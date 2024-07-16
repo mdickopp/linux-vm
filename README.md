@@ -23,7 +23,7 @@ creates a raw VM image file `image.img`. It uses either `sudo` or `su` to
 run as _root_, and may prompt for the _root_ password.
 
 Creating the image file on a RAM disk speeds up the process, but note that
-about 4 GB of free space are needed in the directory where the image file is
+about 6 GB of free space are needed in the directory where the image file is
 created.
 
 ## Testing the Image
