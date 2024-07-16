@@ -3,7 +3,7 @@
 ##############################################################################
 
 extra_packages=
-favorite_apps="'org.gnome.Terminal.desktop', 'org.gnome.Nautilus.desktop', 'firefox.desktop'"
+favorite_apps="'org.gnome.Terminal.desktop', 'org.gnome.Nautilus.desktop', 'firefox-esr.desktop'"
 
 
 ##############################################################################
@@ -37,6 +37,7 @@ apt-get -y -o DPkg::Options::=--force-confold --purge --no-install-recommends in
         dialog \
         emacs \
         file \
+        firefox-esr \
         fonts-liberation \
         fonts-noto \
         gedit \
@@ -75,7 +76,6 @@ apt-get -y -o DPkg::Options::=--force-confold --purge --no-install-recommends in
 set +f
 
 apt-get -y -t sid -o DPkg::Options::=--force-confold --purge --no-install-recommends install \
-        firefox \
         virtualbox-guest-utils \
         virtualbox-guest-x11
 
@@ -91,11 +91,11 @@ apt-get -y clean
 # Configure target system
 ##############################################################################
 
-mkdir -p /etc/firefox/policies
-cat "$srcdir/files/etc_firefox_firefox.js" \
-    >> /etc/firefox/firefox.js
-cat "$srcdir/files/etc_firefox_policies_policies.json" \
-    > /etc/firefox/policies/policies.json
+mkdir -p /etc/firefox-esr/policies
+cat "$srcdir/files/etc_firefox-esr_firefox-esr.js" \
+    >> /etc/firefox-esr/firefox-esr.js
+cat "$srcdir/files/etc_firefox-esr_policies_policies.json" \
+    > /etc/firefox-esr/policies/policies.json
 cat "$srcdir/files/etc_gdm3_daemon.conf" \
     > /etc/gdm3/daemon.conf
 cat "$srcdir/files/etc_gdm3_greeter.dconf-defaults" \
