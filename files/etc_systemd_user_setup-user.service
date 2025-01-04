@@ -1,5 +1,5 @@
 [Unit]
-Description=Set up inital user configuration
+Description=Set up initial user configuration
 ConditionPathExists=%h/.config/.setup-user
 
 [Service]

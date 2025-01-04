@@ -73,5 +73,5 @@ software). It removes log files, caches, and history files, resets the
 desktop environment configuration, discards unused disk blocks, and shuts
 down the virtual machine.
 
-Discarding usused disk blocks decreases the size of the virtual image file.
+Discarding unused disk blocks decreases the size of the virtual image file.
 It may take several minutes.
