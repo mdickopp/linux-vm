@@ -96,11 +96,12 @@ aptitude forget-new
 # Configure target system
 ##############################################################################
 
-mkdir -p /etc/firefox-esr/policies
+mkdir -p /etc/firefox-esr
 cat "$srcdir/files/etc_firefox-esr_firefox-esr.js" \
     >> /etc/firefox-esr/firefox-esr.js
-cat "$srcdir/files/etc_firefox-esr_policies_policies.json" \
-    > /etc/firefox-esr/policies/policies.json
+mkdir -p /etc/firefox/policies
+cat "$srcdir/files/etc_firefox_policies_policies.json" \
+    > /etc/firefox/policies/policies.json
 cat "$srcdir/files/etc_gdm3_daemon.conf" \
     > /etc/gdm3/daemon.conf
 cat "$srcdir/files/etc_gdm3_greeter.dconf-defaults" \
