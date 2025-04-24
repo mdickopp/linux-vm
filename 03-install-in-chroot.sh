@@ -247,11 +247,11 @@ grub-install "$imgdev"
 
 rm -f \
    /var/log/alternatives.log \
+   /var/log/bootstrap.log \
    /var/log/dpkg.log \
    /var/log/fontconfig.log
 rm -fr \
    /etc/network \
-   /var/log/bootstrap.log \
    /var/log/journal
 
 find /usr/share/man \
