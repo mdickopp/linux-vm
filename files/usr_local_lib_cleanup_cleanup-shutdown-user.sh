@@ -19,6 +19,10 @@ find \( -name '.#*' -o -name '*~' -o -name '#*#' -o -name '*.swp' \) ! -type d -
 
 test "$(id -u)" != 0 || exit 0
 
+if test -d Downloads; then
+    find Downloads -mindepth 1 -depth -delete || :
+fi
+
 mkdir -p .config
 : > .config/.setup-user
 
