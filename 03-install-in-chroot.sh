@@ -13,8 +13,8 @@ favorite_apps="'org.gnome.Terminal.desktop', 'org.gnome.Nautilus.desktop', 'fire
 case $features in
     */vscodium/*)
         mkdir -p /usr/local/share/keyrings
-        cat "$srcdir/files/etc_apt_sources.list.d_vscodium.list" \
-            > /etc/apt/sources.list.d/vscodium.list
+        cat "$srcdir/files/etc_apt_sources.list.d_vscodium.sources" \
+            > /etc/apt/sources.list.d/vscodium.sources
         cat "$srcdir/files/usr_local_share_keyrings_vscodium.gpg" \
             > /usr/local/share/keyrings/vscodium.gpg
         extra_packages="$extra_packages codium fonts-jetbrains-mono"
@@ -75,8 +75,8 @@ apt-get -y -o DPkg::Options::=--force-confold --purge --no-install-recommends in
         $extra_packages
 set +f
 
-cat "$srcdir/files/etc_apt_sources.list+fasttrack" \
-    >> /etc/apt/sources.list
+cat "$srcdir/files/etc_apt_sources.list.d_trixie-fasttrack.sources" \
+    > /etc/apt/sources.list.d/trixie-fasttrack.sources
 apt-get -y update
 apt-get -y -o DPkg::Options::=--force-confold --purge --no-install-recommends install \
         systemd-resolved \

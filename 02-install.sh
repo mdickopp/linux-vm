@@ -21,7 +21,7 @@ mount "${imgdev}p2" target
 debootstrap \
     --arch=amd64 \
     --include=aptitude \
-    bookworm target https://deb.debian.org/debian
+    trixie target https://deb.debian.org/debian
 
 
 #############################################################################
@@ -44,8 +44,9 @@ hostname > target/etc/hostname
 # FIXME: Do not hard code timezone
 ln -fs /usr/share/zoneinfo/Europe/Berlin target/etc/localtime
 
-cat "$srcdir/files/etc_apt_sources.list" \
-    > target/etc/apt/sources.list
+rm -f target/etc/apt/sources.list
+cat "$srcdir/files/etc_apt_sources.list.d_trixie.sources" \
+    > target/etc/apt/sources.list.d/trixie.sources
 cat "$srcdir/files/etc_default_grub.d_fast-boot.cfg" \
     > target/etc/default/grub.d/fast-boot.cfg
 cat "$srcdir/files/etc_dpkg_dpkg.cfg.d_excludes" \

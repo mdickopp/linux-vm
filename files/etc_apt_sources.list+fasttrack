@@ -1,3 +1,0 @@
-deb [arch=amd64] http://deb.debian.org/debian bookworm-backports main contrib
-deb [arch=amd64] https://fasttrack.debian.net/debian-fasttrack bookworm-backports-staging main contrib
-deb [arch=amd64] https://fasttrack.debian.net/debian-fasttrack bookworm-fasttrack main contrib
