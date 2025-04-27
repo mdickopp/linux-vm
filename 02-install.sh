@@ -23,7 +23,7 @@ mount "${imgdev}p2" target
 debootstrap \
     --arch=amd64 \
     --include=aptitude \
-    bookworm target https://deb.debian.org/debian
+    trixie target https://deb.debian.org/debian
 
 
 #############################################################################

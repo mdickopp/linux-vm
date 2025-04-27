@@ -1,8 +1,12 @@
 # Linux VM
 
-The scripts in this repository create a VM image containing a Debian 12
-(bookworm) system. It can be used as a base for a showcase, a VM used in a
+The scripts in this repository create a VM image containing a Debian 13
+(trixie) system. It can be used as a base for a showcase, a VM used in a
 workshop, etc.
+
+> [!CAUTION]
+> **This branch contains incomplete work in progress to prepare for the
+> upcoming Debian trixie release.**
 
 The scripts should be run on a Debian system. Furthermore, `create-vm`
 depends on the _debootstrap_ package, and `image-to-ova` depends on the

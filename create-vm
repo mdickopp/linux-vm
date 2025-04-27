@@ -27,7 +27,7 @@ show_usage()
 Usage: ${0##*/} [OPTION]... IMAGE_FILENAME
        ${0##*/} --help
 
-Creates a VM image based on Debian 12 (bookworm).
+Creates a VM image based on Debian 13 (trixie).
 
 Options:
   --with-rust        Install Rust language into VM image.
