@@ -44,7 +44,7 @@ EOF
 hostname > target/etc/hostname
 
 # FIXME: Do not hard code timezone
-ln -sf /usr/share/zoneinfo/Europe/Berlin target/etc/localtime
+ln -fs /usr/share/zoneinfo/Europe/Berlin target/etc/localtime
 
 cat "$srcdir/files/etc_apt_sources.list" \
     > target/etc/apt/sources.list

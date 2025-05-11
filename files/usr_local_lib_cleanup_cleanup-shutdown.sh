@@ -19,10 +19,7 @@ BACKSPACE="guess"
 EOF
 : > /etc/.keyboard-configuration
 
-find \
-    /etc/NetworkManager/system-connections /var/lib/NetworkManager \
-    /var/cache \
-    -mindepth 1 -delete
+find /var/cache -mindepth 1 -delete
 
 rm -fr /var/log/apt
 find /var/log -mindepth 1 -type f -name '*.[123456789]*' -delete

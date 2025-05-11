@@ -57,7 +57,6 @@ apt-get -y -o DPkg::Options::=--force-confold --purge --no-install-recommends in
         ltrace \
         manpages \
         netcat-openbsd \
-        network-manager-gnome \
         nftables \
         openssh-client \
         openssl \
@@ -80,6 +79,7 @@ cat "$srcdir/files/etc_apt_sources.list+fasttrack" \
     >> /etc/apt/sources.list
 apt-get -y update
 apt-get -y -o DPkg::Options::=--force-confold --purge --no-install-recommends install \
+        systemd-resolved \
         virtualbox-guest-utils \
         virtualbox-guest-x11
 
@@ -106,6 +106,7 @@ cat "$srcdir/files/etc_gdm3_daemon.conf" \
     > /etc/gdm3/daemon.conf
 cat "$srcdir/files/etc_gdm3_greeter.dconf-defaults" \
     > /etc/gdm3/greeter.dconf-defaults
+ln -fs /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 
 rm -f /etc/skel/.face* /etc/skel/.bash_logout
 patch --posix -f -d /etc/skel -F0 -N -p1 -u < "$srcdir/files/etc_skel_.bashrc.diff"
@@ -123,6 +124,8 @@ EOF
         printf 'RUSTUP_HOME=/opt/rust\n' >> /etc/environment ;;
 esac
 
+cat "$srcdir/files/etc_systemd_network_ether.network" \
+    > /etc/systemd/network/ether.network
 cat "$srcdir/files/etc_systemd_system_keyboard-configuration.service" \
     > /etc/systemd/system/keyboard-configuration.service
 cat "$srcdir/files/etc_systemd_user_setup-user.service" \
@@ -170,6 +173,7 @@ EOF
 done
 
 systemctl --no-reload --force enable keyboard-configuration.service
+systemctl --no-reload --force enable systemd-networkd.service
 systemctl --no-reload --force --global enable setup-user.service
 systemctl mask \
           hibernate.target \
