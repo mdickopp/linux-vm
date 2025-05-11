@@ -84,6 +84,7 @@ apt-get -y -o DPkg::Options::=--force-confold --purge --no-install-recommends in
         virtualbox-guest-x11
 
 apt-get -y --purge purge \
+        cron \
         tasksel \
         whiptail
 
