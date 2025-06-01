@@ -76,6 +76,7 @@ imgdev=$(losetup --partscan --show --find "$image")
 
 env \
     imgdev="$imgdev" \
+    vm_hostname="$vm_hostname" \
     unshare -m -i -u -w "$tmpdir" /bin/sh -e "$srcdir/02-install.sh"
 
 exit 0

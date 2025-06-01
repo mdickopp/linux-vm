@@ -2,9 +2,7 @@
 # Set hostname (within the separate UTS namespace)
 ##############################################################################
 
-# FIXME: do not hard code hostname
-
-hostname vm
+hostname "$(printf '%s' "$vm_hostname" | tr ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz)"
 
 
 ##############################################################################

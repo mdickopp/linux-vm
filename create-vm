@@ -30,11 +30,22 @@ Usage: ${0##*/} [OPTION]... IMAGE_FILENAME
 Creates a VM image based on Debian 12 (bookworm).
 
 Options:
-  --with-rust        Install Rust language into VM image.
-  --with-vscodium    Install VSCodium into VM image.
-  -h, -?, --help     Display this help test and exit.
+  --hostname=HOSTNAME    The hostname of the VM [default: vm].
+  --with-rust            Install Rust language into VM image.
+  --with-vscodium        Install VSCodium into VM image.
+  -h, -?, --help         Display this help test and exit.
 
 EOF
+}
+
+# Validate hostname
+validate_hostname()
+{
+    expr "X$1" : 'X[0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-]\{1,64\}$' > /dev/null && \
+        ! expr "X$1" : 'X-' > /dev/null && \
+        ! expr "X$1" : 'X.*--' > /dev/null && \
+        ! expr "X$1" : 'X.*-$' > /dev/null || \
+        err_usage 'Invalid hostname'
 }
 
 
@@ -62,12 +73,23 @@ esac
 ##############################################################################
 
 features=/
+vm_hostname=vm
 
 while test "$#" -gt 0; do
     case $1 in
-        -h|-\?|--help|--hel|--he|--h)
+        -h|-\?|--help|--hel|--he)
             show_usage
             exit 0 ;;
+        --hostname=*|--hostnam=*|--hostna=*|--hostn=*|--host=*|--hos=*|--ho=*)
+            validate_hostname "${1#*=}"
+            vm_hostname=${1#*=}
+            shift ;;
+        --hostname|--hostnam|--hostna|--hostn|--host|--hos|--ho)
+            shift
+            test "$#" -gt 0 || err_usage 'Option --hostname requires an argument'
+            validate_hostname "$1"
+            vm_hostname=$1
+            shift ;;
         --with-rust|--with-rus|--with-ru|--with-r)
             case $features in
                 */rust/*) ;;
@@ -104,7 +126,6 @@ test "$#" -eq 0 || err_usage 'Unrecognized argument:' "$1"
 ##############################################################################
 
 # FIXME: do not hard code size
-
 truncate -s 16G /dev/stdout > "$image"
 
 
@@ -119,7 +140,8 @@ if sudo -V > /dev/null 2>&1; then
         features="$features" \
         image="$(realpath --quiet --canonicalize-existing "$image")" \
         srcdir="$srcdir" \
-        sudo -i --preserve-env=features,image,srcdir \
+        vm_hostname="$vm_hostname" \
+        sudo -i --preserve-env=features,image,srcdir,vm_hostname \
         /bin/sh -e "$srcdir/01-setup-image.sh" \
         || rc="$?"
 else
@@ -127,7 +149,8 @@ else
         features="$features" \
         image="$(realpath --quiet --canonicalize-existing "$image")" \
         srcdir="$srcdir" \
-        su -l -s /bin/sh -w features,image,srcdir \
+        vm_hostname="$vm_hostname" \
+        su -l -s /bin/sh -w features,image,srcdir,vm_hostname \
         -c 'exec /bin/sh -e "$srcdir/01-setup-image.sh"' \
         || rc="$?"
 fi
