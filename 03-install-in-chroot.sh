@@ -44,6 +44,7 @@ apt-get -y -o DPkg::Options::=--force-confold --purge --no-install-recommends in
         gedit \
         git \
         gnome-core \
+        gnome-session-xsession \
         gnome-shell-extension-prefs \
         gnome-shell-extensions-extra \
         gnome-tweaks \
