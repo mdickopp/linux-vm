@@ -4,22 +4,14 @@ Suites: trixie-backports
 Components: main contrib
 Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
 
-# FIXME: trixie
-# Types: deb
-# URIs: https://fasttrack.debian.net/debian-fasttrack/
-# Suites: trixie-backports-staging
-# Components: main contrib
-# Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
-#
-# Types: deb
-# URIs: https://fasttrack.debian.net/debian-fasttrack/
-# Suites: trixie-fasttrack
-# Components: main contrib
-# Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
-
-# FIXME: trixie: remove this section
 Types: deb
-URIs: https://deb.debian.org/debian/
-Suites: sid
+URIs: https://fasttrack.debian.net/debian-fasttrack/
+Suites: trixie-backports-staging
 Components: main contrib
-Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+Signed-By: /usr/share/keyrings/fasttrack-archive-keyring.gpg
+
+Types: deb
+URIs: https://fasttrack.debian.net/debian-fasttrack/
+Suites: trixie-fasttrack
+Components: main contrib
+Signed-By: /usr/share/keyrings/fasttrack-archive-keyring.gpg
