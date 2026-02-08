@@ -6,12 +6,6 @@ Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
 
 Types: deb
 URIs: https://fasttrack.debian.net/debian-fasttrack/
-Suites: trixie-backports-staging
-Components: main contrib
-Signed-By: /usr/share/keyrings/fasttrack-archive-keyring.gpg
-
-Types: deb
-URIs: https://fasttrack.debian.net/debian-fasttrack/
-Suites: trixie-fasttrack
+Suites: trixie-fasttrack trixie-backports-staging
 Components: main contrib
 Signed-By: /usr/share/keyrings/fasttrack-archive-keyring.gpg

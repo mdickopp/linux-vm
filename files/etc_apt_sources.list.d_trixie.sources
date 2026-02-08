@@ -1,12 +1,6 @@
 Types: deb
 URIs: https://deb.debian.org/debian/
-Suites: trixie
-Components: main contrib
-Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
-
-Types: deb
-URIs: https://deb.debian.org/debian/
-Suites: trixie-updates
+Suites: trixie trixie-updates
 Components: main contrib
 Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
 
