@@ -63,6 +63,7 @@ apt-get -y -o DPkg::Options::=--force-confold --purge --no-install-recommends in
         openssl \
         patch \
         strace \
+        systemd-resolved \
         tcpdump \
         traceroute \
         unzip \
@@ -80,7 +81,6 @@ cat "$srcdir/files/etc_apt_sources.list.d_trixie-fasttrack.sources" \
     > /etc/apt/sources.list.d/trixie-fasttrack.sources
 apt-get -y update
 apt-get -y -o DPkg::Options::=--force-confold --purge --no-install-recommends install \
-        systemd-resolved \
         virtualbox-guest-utils \
         virtualbox-guest-x11
 
