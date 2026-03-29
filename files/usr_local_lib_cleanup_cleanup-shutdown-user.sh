@@ -11,6 +11,7 @@ rm -fr \
    .config/emacs/eln-cache \
    .config/pulse \
    .local/share/gvfs-metadata \
+   .local/share/keyrings \
    .local/share/org.gnome.TextEditor \
    .local/share/xorg \
    .local/state \

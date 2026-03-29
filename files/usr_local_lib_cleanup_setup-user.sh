@@ -88,4 +88,17 @@ show-hidden=true
 mode='auto'
 EOF
 
+mkdir -p -m a=rx,u=rwx .local/share
+mkdir -p -m a=,u=rwx .local/share/keyrings
+printf 'Default_keyring' > .local/share/keyrings/default
+cat >> .local/share/keyrings/Default_keyring.keyring <<EOF
+[keyring]
+display-name=Default keyring
+ctime=$(date +%s)
+mtime=0
+lock-on-idle=false
+lock-after=false
+EOF
+chmod a=,u=rw .local/share/keyrings/Default_keyring.keyring
+
 exit 0

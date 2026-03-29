@@ -1,6 +1,7 @@
 [Unit]
 Description=Set up initial user configuration
 ConditionPathExists=%h/.config/.setup-user
+Before=gnome-keyring-daemon.service
 
 [Service]
 Type=oneshot
