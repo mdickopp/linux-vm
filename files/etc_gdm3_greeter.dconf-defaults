@@ -10,6 +10,7 @@ font-hinting='slight'
 font-name='Cantarell 11'
 monospace-font-name='Liberation Mono 11'
 show-battery-percentage=true
+text-scaling-factor=1.25
 
 [org/gnome/desktop/peripherals/touchpad]
 tap-to-click=true

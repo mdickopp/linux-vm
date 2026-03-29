@@ -17,6 +17,7 @@ font-hinting='slight'
 font-name='Cantarell 11'
 monospace-font-name='Liberation Mono 11'
 show-battery-percentage=true
+text-scaling-factor=1.25
 
 [org/gnome/desktop/peripherals/touchpad]
 tap-to-click=true
@@ -74,7 +75,7 @@ download-updates=false
 [org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9]
 cursor-blink-mode='off'
 default-size-columns=80
-default-size-rows=50
+default-size-rows=35
 login-shell=true
 
 [org/gtk/gtk4/settings/file-chooser]
