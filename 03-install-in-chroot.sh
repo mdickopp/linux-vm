@@ -62,6 +62,8 @@ apt-get -y -o DPkg::Options::=--force-confold --purge --no-install-recommends in
         openssh-client \
         openssl \
         patch \
+        qemu-guest-agent \
+        spice-vdagent \
         strace \
         systemd-resolved \
         tcpdump \
@@ -72,6 +74,7 @@ apt-get -y -o DPkg::Options::=--force-confold --purge --no-install-recommends in
         xserver-xorg \
         xserver-xorg-input-all \
         xserver-xorg-input-wacom \
+        xserver-xorg-video-qxl \
         xz-utils \
         zip \
         $extra_packages
