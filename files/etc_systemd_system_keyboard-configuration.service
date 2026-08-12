@@ -1,5 +1,5 @@
 [Unit]
-Description=Open keyboard configuration dialog
+Description=Keyboard configuration dialog
 ConditionPathExists=/dev/tty2
 ConditionPathExists=/etc/.keyboard-configuration
 DefaultDependencies=no
@@ -12,6 +12,7 @@ Before=basic.target shutdown.target
 Type=oneshot
 ExecStartPre=/bin/chvt 2
 ExecStart=/usr/sbin/dpkg-reconfigure --frontend=dialog --priority=high keyboard-configuration
+ExecStartPost=-/bin/chvt 1
 ExecStartPost=/bin/rm -f /etc/.keyboard-configuration
 StandardInput=tty
 StandardOutput=inherit
